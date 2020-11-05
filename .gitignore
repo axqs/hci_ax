@@ -1,3 +1,4 @@
 db.sqlite3
 /covid_site/__pycache__
 /hci_ax/__pycache__
+/covid_site/migrations
