@@ -1,0 +1,27 @@
+html {
+    background-color: #ddddeb;
+    height: 100%;
+    width: 100%;
+}
+div{
+    float: left;
+}
+.wholeSpan {
+    width: 100%;
+}
+.threeQuarterSpan {
+    width: 75%;
+}
+.twoThirdSpan {
+    width: 66%;
+}
+.halfSpan {
+    width: 50%;
+    padding-right: 100px;
+}
+.oneThirdSpan {
+    width: 33%;
+}
+.quarterSpan {
+    width: 25%;
+}

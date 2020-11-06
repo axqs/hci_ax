@@ -1,12 +1,17 @@
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript">
-    google.load("visualization", "1", {packages:["corechart"]});
-</script>
+
+{% extends 'covid_site/base.html' %}
+{% load static %}
+
+{% block body_block %}
+
 {% if charts %}
-    <p>There are charts.</p> 
-    <p>{{ charts.0.as_html }}</p> 
-    <p>{{ charts.1.as_html }}</p> 
-    <p>{{ charts.2.as_html }}</p> 
+    {% for c in charts %}
+        <div class={{ c.size }}>
+            <div id={{ c.id }}></div>
+        </div>
+    {% endfor %}
 {% else %}
-    <p>No charts.</p> 
-{% endif %}
+    <p>No data available.</p> 
+{% endif %} 
+
+{% endblock %}
