@@ -3,19 +3,6 @@ from django.http import HttpResponse
 from django.template import loader
 import json
 
-#chart functions
-from graphos.sources.simple import SimpleDataSource
-from graphos.renderers.gchart import BarChart
-from graphos.renderers.gchart import LineChart
-from graphos.renderers.gchart import PieChart
-
-sizeDict = {
-    "wholeSpan": {"height" : 400},
-    "twoThirdSpan": {"height" : 350},
-    "halfSpan": {"height" : 350},
-    "quarterSpan": {"height" : 350},
-}
-
 # Create your views here.
 def populate():
     print("refresh charts")

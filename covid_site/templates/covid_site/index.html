@@ -6,12 +6,12 @@
 
 {% if charts %}
     {% for c in charts %}
-        <div class={{ c.size }}>
+        <div id="container" class={{ c.size }}>
             <div id={{ c.id }}></div>
         </div>
     {% endfor %}
 {% else %}
     <p>No data available.</p> 
 {% endif %} 
-
+<div style="clear: both; color: #ddddeb;">.</div>
 {% endblock %}

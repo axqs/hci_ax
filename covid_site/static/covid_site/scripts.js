@@ -56,7 +56,7 @@ function getSize(size){
             w = window.innerWidth;
             break;
     }
-    return w-10;
+    return w-45 - (window.innerWidth * 0.02);
 }
 
 function drawChart(chart){
