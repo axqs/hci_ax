@@ -36,27 +36,28 @@ function drawArea(id,data,options){
 
 function getSize(size){
     var w = 0;
+    var marginSize = 0.021;
     switch(size) {
         case "threeQuarterSpan":
-            w = window.innerWidth*3/4;
+            w = window.innerWidth*(0.75 - marginSize);
             break;
         case "twoThirdSpan":
-            w = window.innerWidth*2/3;
+            w = window.innerWidth*(0.66 - marginSize);
             break;
         case "halfSpan":
-            w = window.innerWidth/2;
+            w = window.innerWidth*(0.5 - marginSize);
             break;
         case "oneThirdSpan":
-            w = window.innerWidth/3;
+            w = window.innerWidth*(0.33 - marginSize);
             break;
         case "quarterSpan":
-            w = window.innerWidth/4;
+            w = window.innerWidth0*(0.25 - marginSize);
             break;
         default:
-            w = window.innerWidth;
+            w = window.innerWidth*(1 - marginSize);
             break;
     }
-    return w-45 - (window.innerWidth * 0.02);
+    return w - 17;
 }
 
 function drawChart(chart){

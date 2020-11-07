@@ -3,15 +3,16 @@
 {% load static %}
 
 {% block body_block %}
-
-{% if charts %}
-    {% for c in charts %}
-        <div id="container" class={{ c.size }}>
-            <div id={{ c.id }}></div>
-        </div>
-    {% endfor %}
-{% else %}
-    <p>No data available.</p> 
-{% endif %} 
+<div class="charts">
+    {% if charts %}
+        {% for c in charts %}
+            <div id="container" class={{ c.size }}>
+                <div id={{ c.id }}></div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No data available.</p> 
+    {% endif %} 
+</div>
 <div style="clear: both; color: #ddddeb;">.</div>
 {% endblock %}
