@@ -63,16 +63,16 @@ function getSize(size){
 function drawChart(chart){
     switch(chart["type"]) {
         case "map":
-            return drawMap(chart["id"],chart["data"],{title:chart["title"],height:300,width:getSize(chart["size"])});
+            return drawMap(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },title:chart["title"],height:300,width:getSize(chart["size"])});
         case "line":
-            return drawLine(chart["id"],chart["data"],{title:chart["title"],height:300,width:getSize(chart["size"])});
+            return drawLine(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },title:chart["title"],height:300,width:getSize(chart["size"])});
         case "bar":
-            return drawBar(chart["id"],chart["data"],{title:chart["title"],height:300,width:getSize(chart["size"])});
+            return drawBar(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },title:chart["title"],height:300,width:getSize(chart["size"])});
         case "pie":
-            return drawPie(chart["id"],chart["data"],{title:chart["title"],height:300,width:getSize(chart["size"])});
+            return drawPie(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },title:chart["title"],height:300,width:getSize(chart["size"])});
         case "area":
-            return drawArea(chart["id"],chart["data"],{title:chart["title"],height:300,width:getSize(chart["size"])});
+            return drawArea(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },title:chart["title"],height:300,width:getSize(chart["size"])});
         default:
-            return drawLine("default",chart["data"],{title:chart["title"],height:300,width:getSize(chart["size"])});
+            return drawLine("default",chart["data"],{backgroundColor: { fill:'transparent' },title:chart["title"],height:300,width:getSize(chart["size"])});
     }
 }
