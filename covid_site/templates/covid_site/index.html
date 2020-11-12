@@ -51,25 +51,4 @@
 </div>
 
 <div style="clear: both; color: #ddddeb;">.</div>
-
-<script type="text/javascript">
-    var ie_writeFile = function (fname, data) {
-        var fso, fileHandle;
-        fso = new ActiveXObject("Scripting.FileSystemObject");
-        fileHandle = fso.CreateTextFile(fname, true);
-        fileHandle.write(data);
-        fileHandle.close();
-    };
-    function Write(id){
-        ie_writeFile("covid_site/static/covid_site/country.txt", id);
-    }
-    function test(clicked_id)
-    {
-        alert(clicked_id);
-        const fs = require('fs');
-        fs.writeFile('./covid_site/static/covid_site/country.txt', clicked_id, (err) => { 
-            if (err) throw err; 
-        });
-    }
-  </script>
 {% endblock %}
