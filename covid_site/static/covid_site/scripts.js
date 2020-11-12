@@ -75,16 +75,3 @@ function drawChart(chart){
             return drawLine("default",chart["data"],{backgroundColor: { fill:'transparent' },height:350,width:getSize(chart["size"])});
     }
 }
-
-function changeCountry(country){
-    const fs = require('fs');
-    console.log(country);
-    
-    // Write data in 'Output.txt' . 
-    fs.writeFile('country.txt', country, (err) => { 
-        
-        // In case of a error throw err. 
-        if (err) throw err; 
-    });
-    window.location.reload();
-}

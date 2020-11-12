@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.views.decorators.csrf import csrf_protect
+from django.urls import reverse
 from django.template import loader
 import json
 
@@ -203,9 +205,7 @@ countries = ["Afghanistan",
 "Zimbabwe" ]
 
 def populate():
-    print("refresh charts")
     charts = []
-
     charts.append({
         "size" : "wholeSpan",
         "id" : "worldwide",
@@ -259,12 +259,19 @@ def populate():
 
     return charts
 
+@csrf_protect
 def index(request):
     charts = populate()
     context = {}
 
-    with open("./covid_site/static/covid_site/country.txt","r") as f:
-        current_country = f.readlines()[0]
+    if request.method == 'POST':
+        current_country = request.POST.get('country')
+        with open("./covid_site/static/covid_site/country.txt","w") as f:
+            f.write(current_country)
+        
+    else:
+        with open("./covid_site/static/covid_site/country.txt","r") as f:
+            current_country = f.readlines()[0]
 
     if len(charts) > 0:
         context["charts"] = charts
