@@ -4,28 +4,40 @@
 
 {% block body_block %}
 <div class="sectionheading">Worldwide Data</div>
+<div style="clear: both; color: #ddddeb;">.</div>
 <div id="container" class= "wholeSpan">
     <div id="worldwide"></div>
 </div>
-<div class="sectionheading">Data by Country</div>
+<div style="clear: both; color: #ddddeb;">.</div>
+<div class="chartdiv">
+    <div class="sectionheading">Data by Country: {{ current }}
+        <span class="dropdown">Country <i class="fa fa-caret-down"></i>
+            <div class="dropdown-content">
+                {% for country in countries %}
+                    <span><button id={{ country }} onclick="test(this.id)">{{ country }}</button></span>
+                {% endfor %}
+            </div>
+        </span>
+    </div>
+    <div style="clear: both; color: #ddddeb;">.</div>
+    <div id="container" class="quarterSpan">
+        <div class="dataheading">New Cases Today</div>
+        <div class="datavalue">
+            <span class="iconify" data-icon="simple-icons:myspace" data-inline="false"></span>
+            1,433
+        </div>
+        <div class="dataheading">New Deaths Today</div>
+        <div class="datavalue">
+            <span class="iconify" data-icon="simple-icons:myspace" data-inline="false"></span>
+            50
+        </div>
+    </div>
 
-<div id="container" class="quarterSpan">
-    <div class="dataheading">New Cases Today</div>
-    <div class="datavalue">
-        <span class="iconify" data-icon="simple-icons:myspace" data-inline="false"></span>
-        1,433
-    </div>
-    <div class="dataheading">New Deaths Today</div>
-    <div class="datavalue">
-        <span class="iconify" data-icon="simple-icons:myspace" data-inline="false"></span>
-        50
-    </div>
-</div>
-<div class="charts">
     {% if charts %}
         {% for c in charts %}
             {% if c.id != "worldwide" %}
                 <div id="container" class={{ c.size }}>
+                    <div class="dataheading">{{ c.title }}</div>
                     <div id={{ c.id }}></div>
                 </div>
             {% endif %}
@@ -34,5 +46,17 @@
         <p>No data available.</p> 
     {% endif %} 
 </div>
+
 <div style="clear: both; color: #ddddeb;">.</div>
+
+<script type="text/javascript">
+    function test(clicked_id)
+    {
+        alert(clicked_id);
+        const fs = require('fs');
+        fs.writeFile('./covid_site/static/covid_site/country.txt', clicked_id, (err) => { 
+            if (err) throw err; 
+        });
+    }
+  </script>
 {% endblock %}

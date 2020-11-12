@@ -36,43 +36,55 @@ function drawArea(id,data,options){
 
 function getSize(size){
     var w = 0;
-    var marginSize = 0.021;
     switch(size) {
         case "threeQuarterSpan":
-            w = window.innerWidth*(0.75 - marginSize);
+            w = window.innerWidth*(0.75);
             break;
         case "twoThirdSpan":
-            w = window.innerWidth*(0.66 - marginSize);
+            w = window.innerWidth*(0.66);
             break;
         case "halfSpan":
-            w = window.innerWidth*(0.5 - marginSize);
+            w = window.innerWidth*(0.5);
             break;
         case "oneThirdSpan":
-            w = window.innerWidth*(0.33 - marginSize);
+            w = window.innerWidth*(0.33);
             break;
         case "quarterSpan":
-            w = window.innerWidth0*(0.25 - marginSize);
+            w = window.innerWidth0*(0.25);
             break;
         default:
-            w = window.innerWidth*(1 - marginSize);
+            w = window.innerWidth*(1);
             break;
     }
-    return w - 17;
+    return w;
 }
 
 function drawChart(chart){
     switch(chart["type"]) {
         case "map":
-            return drawMap(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },title:chart["title"],height:300,width:getSize(chart["size"])});
+            return drawMap(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },height:350,width:getSize(chart["size"])});
         case "line":
-            return drawLine(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },title:chart["title"],height:300,width:getSize(chart["size"])});
+            return drawLine(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },height:350,width:getSize(chart["size"])});
         case "bar":
-            return drawBar(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },title:chart["title"],height:300,width:getSize(chart["size"])});
+            return drawBar(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },height:350,width:getSize(chart["size"])});
         case "pie":
-            return drawPie(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },title:chart["title"],height:300,width:getSize(chart["size"])});
+            return drawPie(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },height:350,width:getSize(chart["size"])});
         case "area":
-            return drawArea(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },title:chart["title"],height:300,width:getSize(chart["size"])});
+            return drawArea(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },height:350,width:getSize(chart["size"])});
         default:
-            return drawLine("default",chart["data"],{backgroundColor: { fill:'transparent' },title:chart["title"],height:300,width:getSize(chart["size"])});
+            return drawLine("default",chart["data"],{backgroundColor: { fill:'transparent' },height:350,width:getSize(chart["size"])});
     }
+}
+
+function changeCountry(country){
+    const fs = require('fs');
+    console.log(country);
+    
+    // Write data in 'Output.txt' . 
+    fs.writeFile('country.txt', country, (err) => { 
+        
+        // In case of a error throw err. 
+        if (err) throw err; 
+    });
+    window.location.reload();
 }
