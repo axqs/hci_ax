@@ -3,206 +3,43 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_protect
 from django.urls import reverse
 from django.template import loader
-import json
+import pandas as pd
+from datetime import date, datetime
 
 # Create your views here.
 current_country = ''
-countries = ["Afghanistan",
-"Albania",
-"Algeria",
-"Andorra",
-"Angola",
-"Antigua & Deps",
-"Argentina",
-"Armenia",
-"Australia",
-"Austria",
-"Azerbaijan",
-"Bahamas",
-"Bahrain",
-"Bangladesh",
-"Barbados",
-"Belarus",
-"Belgium",
-"Belize",
-"Benin",
-"Bhutan",
-"Bolivia",
-"Bosnia Herzegovina",
-"Botswana",
-"Brazil",
-"Brunei",
-"Bulgaria",
-"Burkina",
-"Burundi",
-"Cambodia",
-"Cameroon",
-"Canada",
-"Cape Verde",
-"Central African Rep",
-"Chad",
-"Chile",
-"China",
-"Colombia",
-"Comoros",
-"Congo",
-"Congo",
-"Costa Rica",
-"Croatia",
-"Cuba",
-"Cyprus",
-"Czech Republic",
-"Denmark",
-"Djibouti",
-"Dominica",
-"Dominican Republic",
-"East Timor",
-"Ecuador",
-"Egypt",
-"El Salvador",
-"Equatorial Guinea",
-"Eritrea",
-"Estonia",
-"Ethiopia",
-"Fiji",
-"Finland",
-"France",
-"Gabon",
-"Gambia",
-"Georgia",
-"Germany",
-"Ghana",
-"Greece",
-"Grenada",
-"Guatemala",
-"Guinea",
-"Guinea-Bissau",
-"Guyana",
-"Haiti",
-"Honduras",
-"Hungary",
-"Iceland",
-"India",
-"Indonesia",
-"Iran",
-"Iraq",
-"Ireland",
-"Israel",
-"Italy",
-"Ivory Coast",
-"Jamaica",
-"Japan",
-"Jordan",
-"Kazakhstan",
-"Kenya",
-"Kiribati",
-"Korea North",
-"Korea South",
-"Kosovo",
-"Kuwait",
-"Kyrgyzstan",
-"Laos",
-"Latvia",
-"Lebanon",
-"Lesotho",
-"Liberia",
-"Libya",
-"Liechtenstein",
-"Lithuania",
-"Luxembourg",
-"Macedonia",
-"Madagascar",
-"Malawi",
-"Malaysia",
-"Maldives",
-"Mali",
-"Malta",
-"Marshall Islands",
-"Mauritania",
-"Mauritius",
-"Mexico",
-"Micronesia",
-"Moldova",
-"Monaco",
-"Mongolia",
-"Montenegro",
-"Morocco",
-"Mozambique",
-"Myanmar,",
-"Namibia",
-"Nauru",
-"Nepal",
-"Netherlands",
-"New Zealand",
-"Nicaragua",
-"Niger",
-"Nigeria",
-"Norway",
-"Oman",
-"Pakistan",
-"Palau",
-"Panama",
-"Papua New Guinea",
-"Paraguay",
-"Peru",
-"Philippines",
-"Poland",
-"Portugal",
-"Qatar",
-"Romania",
-"Russian Federation",
-"Rwanda",
-"St Kitts & Nevis",
-"St Lucia",
-"Saint Vincent & the Grenadines",
-"Samoa",
-"San Marino",
-"Sao Tome & Principe",
-"Saudi Arabia",
-"Senegal",
-"Serbia",
-"Seychelles",
-"Sierra Leone",
-"Singapore",
-"Slovakia",
-"Slovenia",
-"Solomon Islands",
-"Somalia",
-"South Africa",
-"South Sudan",
-"Spain",
-"Sri Lanka",
-"Sudan",
-"Suriname",
-"Swaziland",
-"Sweden",
-"Switzerland",
-"Syria",
-"Taiwan",
-"Tajikistan",
-"Tanzania",
-"Thailand",
-"Togo",
-"Tonga",
-"Trinidad & Tobago",
-"Tunisia",
-"Turkey",
-"Turkmenistan",
-"Tuvalu",
-"Uganda",
-"Ukraine",
-"United Arab Emirates",
-"United Kingdom",
-"United States",
-"Uruguay",
-"Uzbekistan",
-"Vanuatu",
-"Vatican City",
-"Venezuela",
-"Vietnam",
-"Yemen",
-"Zambia",
-"Zimbabwe" ]
+today = str(date.today())
+
+def getData():
+    d = pd.read_csv('https://covid19.who.int/WHO-COVID-19-global-data.csv', sep=',', skipinitialspace=True)
+    d.replace(to_replace=['United States of America', 'Russian Federation', 'The United Kingdom','Iran (Islamic Republic of)','Syrian Arab Republic','Viet Nam','Venezuela (Bolivarian Republic of)','Bolivia (Plurinational State of)','United Republic of Tanzania',],
+           value= ['United States', 'Russia', 'United Kingdom','Iran','Syria','Vietnam','Venezuela','Bolivia','Tanzania',], 
+           inplace=True)
+    return d[d['Date_reported']==today]
+
+data = getData()
+
+def getCountries(): 
+    return data.Country.unique().tolist()
+
+countries = getCountries()
+
+def getWorldData():
+    world_data = data[["Country","Cumulative_deaths"]]
+
+    world_data = world_data.values.tolist()
+    world_data.insert(0,["Country","Total Deaths"])
+
+    
+    return world_data
+
+def getCountryData():
+    with open("./covid_site/static/covid_site/country.txt","r") as f:
+        current_country = f.readlines()[0]
+        
+    cData = data[data['Country']==current_country]
+    return {"cases":cData.iloc[0]['New_cases'],
+            "deaths":cData.iloc[0]['New_deaths']}
 
 def populate():
     charts = []
@@ -211,15 +48,7 @@ def populate():
         "id" : "worldwide",
         "title" : "Zero",
         "type" : "map",
-        "data" : [
-            ['Country', 'Popularity'],
-            ['Germany', 200],
-            ['United States', 300],
-            ['Brazil', 400],
-            ['Canada', 500],
-            ['France', 600],
-            ['RU', 700],
-        ],
+        "data" : getWorldData(),
     })
     charts.append({
         "size" : "oneThirdSpan",
@@ -253,29 +82,25 @@ def populate():
             ["66+", 1030]
         ],
     })
-
-    with open("./covid_site/static/covid_site/data.json", 'w') as f:
-        json.dump(charts , f)
-
     return charts
 
-@csrf_protect
 def index(request):
-    charts = populate()
-    context = {}
-
     if request.method == 'POST':
         current_country = request.POST.get('country')
         with open("./covid_site/static/covid_site/country.txt","w") as f:
             f.write(current_country)
-        
     else:
         with open("./covid_site/static/covid_site/country.txt","r") as f:
             current_country = f.readlines()[0]
 
+    charts = populate()
+    context = {}
+    context["countries"] = countries
+    context["date"] = datetime.now().strftime("%d %B, %Y")
+    context["current"] = current_country
+    context["country_data"] = getCountryData()
+    
     if len(charts) > 0:
         context["charts"] = charts
-        context["countries"] = countries
-        context["current"] = current_country
-    
+        
     return render(request, 'covid_site/index.html', context)

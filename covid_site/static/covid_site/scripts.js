@@ -38,22 +38,22 @@ function getSize(size){
     var w = 0;
     switch(size) {
         case "threeQuarterSpan":
-            w = window.innerWidth*(0.75);
+            w = window.outerWidth*(0.75);
             break;
         case "twoThirdSpan":
-            w = window.innerWidth*(0.66);
+            w = window.outerWidth*(0.66);
             break;
         case "halfSpan":
-            w = window.innerWidth*(0.5);
+            w = window.outerWidth*(0.5);
             break;
         case "oneThirdSpan":
-            w = window.innerWidth*(0.33);
+            w = window.outerWidth*(0.33);
             break;
         case "quarterSpan":
-            w = window.innerWidth0*(0.25);
+            w = window.outerWidth*(0.25);
             break;
         default:
-            w = window.innerWidth*(1);
+            w = window.outerWidth*(0.99);
             break;
     }
     return w;
@@ -62,16 +62,16 @@ function getSize(size){
 function drawChart(chart){
     switch(chart["type"]) {
         case "map":
-            return drawMap(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },height:350,width:getSize(chart["size"])});
+            return drawMap(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },colorAxis: {colors: ['#00853f', '#e31b23']},height:350,width:getSize(chart["size"]),});
         case "line":
-            return drawLine(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },height:350,width:getSize(chart["size"])});
+            return drawLine(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },height:350,width:getSize(chart["size"])});
         case "bar":
-            return drawBar(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },height:350,width:getSize(chart["size"])});
+            return drawBar(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },height:350,width:getSize(chart["size"])});
         case "pie":
-            return drawPie(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },height:350,width:getSize(chart["size"])});
+            return drawPie(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },height:350,width:getSize(chart["size"])});
         case "area":
-            return drawArea(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },height:350,width:getSize(chart["size"])});
+            return drawArea(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },height:350,width:getSize(chart["size"])});
         default:
-            return drawLine("default",chart["data"],{backgroundColor: { fill:'transparent' },height:350,width:getSize(chart["size"])});
+            return drawLine("default",chart["data"],{backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },height:350,width:getSize(chart["size"])});
     }
 }
