@@ -3,8 +3,20 @@ html {
     height: 100%;
     width: 100%;
     padding-bottom: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.sectionheading {
+    font-size: 35px;
+}
+.dataheading {
+    font-size: 20px;
+    padding: 15px;
+}
+.datavalue {
+    font-size: 25px;
+    padding: 15px;
+}
 .charts {
     width: 97.9%;
 }

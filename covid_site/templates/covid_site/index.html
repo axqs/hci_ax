@@ -3,12 +3,32 @@
 {% load static %}
 
 {% block body_block %}
+<div class="sectionheading">Worldwide Data</div>
+<div id="container" class= "wholeSpan">
+    <div id="worldwide"></div>
+</div>
+<div class="sectionheading">Data by Country</div>
+
+<div id="container" class="quarterSpan">
+    <div class="dataheading">New Cases Today</div>
+    <div class="datavalue">
+        <span class="iconify" data-icon="simple-icons:myspace" data-inline="false"></span>
+        1,433
+    </div>
+    <div class="dataheading">New Deaths Today</div>
+    <div class="datavalue">
+        <span class="iconify" data-icon="simple-icons:myspace" data-inline="false"></span>
+        50
+    </div>
+</div>
 <div class="charts">
     {% if charts %}
         {% for c in charts %}
-            <div id="container" class={{ c.size }}>
-                <div id={{ c.id }}></div>
-            </div>
+            {% if c.id != "worldwide" %}
+                <div id="container" class={{ c.size }}>
+                    <div id={{ c.id }}></div>
+                </div>
+            {% endif %}
         {% endfor %}
     {% else %}
         <p>No data available.</p> 
