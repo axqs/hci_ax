@@ -54,7 +54,7 @@ def populate():
         "data" : getWorldData(),
     })
     charts.append({
-        "size" : "oneThirdSpan",
+        "size" : "wholeSpan",
         "id" : "chart1",
         "title" : current_country+" Closed Cases",
         "type" : "line",
@@ -72,7 +72,7 @@ def populate():
         ],
     })
     charts.append({
-        "size" : "oneThirdSpan",
+        "size" : "halfSpan",
         "id" : "chart3",
         "title" : "Total Deaths per Age Range",
         "type" : "pie",

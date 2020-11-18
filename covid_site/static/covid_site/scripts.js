@@ -44,7 +44,7 @@ function getSize(size){
             w = window.outerWidth*(0.66);
             break;
         case "halfSpan":
-            w = window.outerWidth*(0.5);
+            w = window.outerWidth*(0.48);
             break;
         case "oneThirdSpan":
             w = window.outerWidth*(0.33);
@@ -53,7 +53,7 @@ function getSize(size){
             w = window.outerWidth*(0.25);
             break;
         default:
-            w = window.outerWidth*(0.99);
+            w = window.outerWidth*(0.95);
             break;
     }
     return w;
@@ -78,7 +78,7 @@ function getHeight(size){
             w = window.height*(0.33);
             break;
         default:
-            w = window.outerWidth*(0.33);
+            w = window.height*(0.33);
             break;
     }
     return w;
