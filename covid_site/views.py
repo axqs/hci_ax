@@ -4,17 +4,20 @@ from django.views.decorators.csrf import csrf_protect
 from django.urls import reverse
 from django.template import loader
 import pandas as pd
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 # Create your views here.
 current_country = ''
 today = str(date.today())
+yesterday = str(date.today() - timedelta(days=1))
 
 def getData():
     d = pd.read_csv('https://covid19.who.int/WHO-COVID-19-global-data.csv', sep=',', skipinitialspace=True)
     d.replace(to_replace=['United States of America', 'Russian Federation', 'The United Kingdom','Iran (Islamic Republic of)','Syrian Arab Republic','Viet Nam','Venezuela (Bolivarian Republic of)','Bolivia (Plurinational State of)','United Republic of Tanzania',],
            value= ['United States', 'Russia', 'United Kingdom','Iran','Syria','Vietnam','Venezuela','Bolivia','Tanzania',], 
            inplace=True)
+    if d[d['Date_reported']==today].empty:
+        return d[d['Date_reported']==yesterday]
     return d[d['Date_reported']==today]
 
 data = getData()
