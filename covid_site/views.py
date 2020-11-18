@@ -98,7 +98,7 @@ def index(request):
 
     charts = populate()
     context = {}
-    context["countries"] = countries
+    context["countries"] = sorted(countries)
     context["date"] = datetime.now().strftime("%d %B, %Y")
     context["current"] = current_country
     context["country_data"] = getCountryData()

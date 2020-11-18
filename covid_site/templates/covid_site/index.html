@@ -6,22 +6,24 @@
 <div class="title">COVID-19 Data Visualization <br/> <span style="font-size: 20px;">Data as of {{ date }} (<a href="https://covid19.who.int/WHO-COVID-19-global-data.csv">source</a>)</span></div>
 <div class="sectionheading">Cumulative Confirmed COVID-19 Deaths</div>
 <div style="clear: both; color: #ddddeb;">.</div>
-<div id="container" class= "wholeSpan">
+
+<div id="map" class= "wholeSpan">
     <div id="worldwide"></div>
 </div>
+
 <div style="clear: both; color: #ddddeb;">.</div>
 <div class="chartdiv">
-    <div class="sectionheading">Data by Country: {{ current }}
-        <span class="dropdown">Country <i class="fa fa-caret-down"></i>
-            <div class="dropdown-content">
-                {% for country in countries %}
-                    <form id="index" method="POST" action={% url 'index' %}>
-                        {% csrf_token %}
-                        <input type="submit" value="{{ country }}" name="country"/>
-                    </form>
-                {% endfor %}
-            </div>
-        </span>
+    <div class="sectionheading">Data in: <span class="dropdown">{{ current }} <i class="fa fa-caret-down"></i>
+        <div class="dropdown-content">
+            {% for country in countries %}
+                <form id="index" method="POST" action={% url 'index' %}>
+                    {% csrf_token %}
+                    <input type="submit" value="{{ country }}" name="country"/>
+                </form>
+            {% endfor %}
+        </div>
+    </span>
+        
     </div>
     <div style="clear: both; color: #ddddeb;">.</div>
     <div id="container" class="quarterSpan">

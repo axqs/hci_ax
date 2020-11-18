@@ -16,7 +16,7 @@ html {
     -webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.6);
     font-family: arial;
     }
-a{
+a {
     text-decoration: none;
     color: forestgreen;
 }
@@ -44,7 +44,6 @@ a:hover {
 }
 
 .dropdown {
-    float: right;
     padding: 3px;
 }
 
@@ -65,6 +64,7 @@ a:hover {
     border: none;
     outline: none;
     float: none;
+    overflow: hidden;
     color: black;
     background-color: transparent;
     text-decoration: none;
@@ -81,9 +81,19 @@ background-color: #ddd;
 display: block;
 }
 
+#map{
+    float: left;
+    height: 50%;
+    background-color: white;
+    border: 7px solid white;
+    border-radius: 25px;
+    box-shadow: 2px 2px #9895af;
+    margin: 5px;
+}
+
 #container{
     float: left;
-    height: 400px;
+    height: 25%;
     background-color: white;
     border: 7px solid white;
     border-radius: 25px;

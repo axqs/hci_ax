@@ -59,19 +59,44 @@ function getSize(size){
     return w;
 }
 
+function getHeight(size){
+    var w = 0;
+    switch(size) {
+        case "threeQuarterSpan":
+            w = window.height*(0.33);
+            break;
+        case "twoThirdSpan":
+            w = window.height*(0.33);
+            break;
+        case "halfSpan":
+            w = window.height*(0.33);
+            break;
+        case "oneThirdSpan":
+            w = window.height*(0.33);
+            break;
+        case "quarterSpan":
+            w = window.height*(0.33);
+            break;
+        default:
+            w = window.outerWidth*(0.33);
+            break;
+    }
+    return w;
+}
+
 function drawChart(chart){
     switch(chart["type"]) {
         case "map":
-            return drawMap(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },colorAxis: {colors: ['#00853f', '#e31b23']},height:350,width:getSize(chart["size"]),});
+            return drawMap(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },colorAxis: {colors: ['#f5bcb8', '#a1170d']},height:getHeight(chart["size"]),width:getSize(chart["size"]),});
         case "line":
-            return drawLine(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },height:350,width:getSize(chart["size"])});
+            return drawLine(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },height:getHeight(chart["size"]),width:getSize(chart["size"])});
         case "bar":
-            return drawBar(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },height:350,width:getSize(chart["size"])});
+            return drawBar(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },height:getHeight(chart["size"]),width:getSize(chart["size"])});
         case "pie":
-            return drawPie(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },height:350,width:getSize(chart["size"])});
+            return drawPie(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },height:getHeight(chart["size"]),width:getSize(chart["size"])});
         case "area":
-            return drawArea(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },height:350,width:getSize(chart["size"])});
+            return drawArea(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },height:getHeight(chart["size"]),width:getSize(chart["size"])});
         default:
-            return drawLine("default",chart["data"],{backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },height:350,width:getSize(chart["size"])});
+            return drawLine("default",chart["data"],{backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },height:getHeight(chart["size"]),width:getSize(chart["size"])});
     }
 }
