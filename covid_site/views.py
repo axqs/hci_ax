@@ -106,6 +106,7 @@ def populateCharts():
         "type" : "line",
         "data" : timeseries,
     })
+    countryPercent = [current_country, compareData.tail(1)["Cumulative_cases"].item()] if compareData.tail(1)["Cumulative_cases"].item() > 111000 else [current_country+" < 0.2%", 111000]
     charts.append({
         "size" : "halfSpan",
         "id" : "chart3",
@@ -113,7 +114,7 @@ def populateCharts():
         "type" : "pie",
         "data" : [
             ['Title', 'Number'],
-            [current_country, compareData.tail(1)["Cumulative_cases"].item()],
+            countryPercent,
             ["World", raw_data['New_cases'].sum()-compareData.tail(1)["Cumulative_cases"].item()],
 
         ],
