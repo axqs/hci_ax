@@ -21,14 +21,24 @@
 			function getCharts(){
 				// Load Charts and the corechart and barchart packages.
 				google.charts.load('current', {'packages':['corechart','geochart']});
-
 				// Draw the pie chart and bar chart when Charts is loaded.
 				google.charts.setOnLoadCallback(drawCharts);
-
+			}
+			function getComparisons(){
+				// Load Charts and the corechart and barchart packages.
+				google.charts.load('current', {'packages':['corechart',]});
+				// Draw the pie chart and bar chart when Charts is loaded.
+				google.charts.setOnLoadCallback(drawComparisons);
 			}
 			function drawCharts() {
-				
 				var chartdata = {{ charts|safe }};
+				for(var c=0; c < chartdata.length; c++){
+					var chart = chartdata[c];
+					drawChart(chart);
+				}
+			}
+			function drawComparisons() {
+				var chartdata = {{ comparisons|safe }};
 				for(var c=0; c < chartdata.length; c++){
 					var chart = chartdata[c];
 					drawChart(chart);
@@ -36,8 +46,10 @@
 			}
 			window.onload = function() {
 				getCharts();
+				getComparisons();
 			};
 			window.addEventListener('resize', drawCharts, false);
+			window.addEventListener('resize', drawComparisons, false);
 		</script>
 	</body>
 </html>

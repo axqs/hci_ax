@@ -1,17 +1,12 @@
 
 {% extends 'covid_site/base.html' %}
+{% load humanize %}
+
 {% load static %}
 
 {% block body_block %}
 <div class="title">COVID-19 Data Visualization <br/> <span style="font-size: 20px;">Data as of {{ date }} (<a href="https://covid19.who.int/WHO-COVID-19-global-data.csv">source</a>)</span></div>
-<div class="sectionheading">Cumulative Confirmed COVID-19 Deaths</div>
-<div style="clear: both; color: #ddddeb;">.</div>
 
-<div id="map" class= "wholeSpan">
-    <div id="worldwide"></div>
-</div>
-
-<div style="clear: both; color: #ddddeb;">.</div>
 <div class="chartdiv">
     <div class="sectionheading">Data in: <span class="dropdown">{{ current }} <i class="fa fa-caret-down"></i>
         <div class="dropdown-content">
@@ -42,32 +37,53 @@
 </div>
 
 <div id="container" class="halfSpan">
-    <div class="dataheading">New Cases Today</div>
+    <div class="dataheading">New Cases as of {{ date }}</div>
     <div class="datavalue">
         <span class="iconify" data-icon="simple-icons:myspace" data-inline="false"></span>
-        {{ country_data.cases }}
+        {{ country_data.cases | intcomma }}
     </div>
-    <div class="dataheading">New Deaths Today</div>
+    <div class="dataheading">New Deaths as of {{ date }}</div>
     <div class="datavalue">
         <span class="iconify" data-icon="simple-icons:myspace" data-inline="false"></span>
-        {{ country_data.deaths }}
+        {{ country_data.deaths | intcomma}}
     </div>
 </div>
 
 <div style="clear: both; color: #ddddeb;">.</div>
 <div class="chartdiv">
-    <div class="sectionheading">Compare Data in: <span class="dropdown">{{ current }} <i class="fa fa-caret-down"></i>
-        <div class="dropdown-content">
-            {% for country in countries %}
-                <form id="index" method="POST" action={% url 'index' %}>
-                    {% csrf_token %}
-                    <input type="submit" value="{{ country }}" name="country"/>
-                </form>
-            {% endfor %}
-        </div>
-    </span>
-        
+    <div class="sectionheading">Compare Data in: 
+        <span class="dropdown">{{ compareCountries.0 }} <i class="fa fa-caret-down"></i>
+            <div class="dropdown-content">
+                {% for country in countries %}
+                    <form id="index1" method="POST" action={% url 'index' %}>
+                        {% csrf_token %}
+                        <input type="submit" value="{{ country }}" name="country1"/>
+                    </form>
+                {% endfor %}
+            </div>
+        </span>
+        <span class="dropdown">{{ compareCountries.1 }} <i class="fa fa-caret-down"></i>
+            <div class="dropdown-content">
+                {% for country in countries %}
+                    <form id="index2" method="POST" action={% url 'index' %}>
+                        {% csrf_token %}
+                        <input type="submit" value="{{ country }}" name="country2"/>
+                    </form>
+                {% endfor %}
+            </div>
+        </span>  
+        <span class="dropdown">{{ compareCountries.2 }} <i class="fa fa-caret-down"></i>
+            <div class="dropdown-content">
+                {% for country in countries %}
+                    <form id="index3" method="POST" action={% url 'index' %}>
+                        {% csrf_token %}
+                        <input type="submit" value="{{ country }}" name="country3"/>
+                    </form>
+                {% endfor %}
+            </div>
+        </span>
     </div>
+    <div style="clear: both; color: #ddddeb;">.</div>
     {% if comparisons %}
     {% for c in comparisons %}
         <div id="container" class={{ c.size }}>
@@ -80,6 +96,15 @@
 {% endif %} 
     <div style="clear: both; color: #ddddeb;">.</div>
 </div>
+
+<div class="sectionheading">Cumulative Confirmed COVID-19 Deaths</div>
+    <div style="clear: both; color: #ddddeb;">.</div>
+
+    <div id="map" class= "wholeSpan">
+        <div id="worldwide"></div>
+    </div>
+
+<div style="clear: both; color: #ddddeb;">.</div>
 
 
 {% endblock %}

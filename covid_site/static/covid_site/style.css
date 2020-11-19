@@ -29,12 +29,16 @@ a:hover {
     padding: 15px;
 }
 .datavalue {
-    font-size: 25px;
+    font-size: 35px;
     padding: 15px;
 }
 
 .dropdown {
     padding: 3px;
+    color: forestgreen;
+}
+.dropdown:hover {
+    color: rebeccapurple;
 }
 
 .dropdown-content {
