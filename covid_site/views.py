@@ -44,7 +44,7 @@ def getCountryData():
     return {"cases":cData.iloc[0]['New_cases'],
             "deaths":cData.iloc[0]['New_deaths']}
 
-def populate():
+def populateCharts():
     charts = []
     charts.append({
         "size" : "wholeSpan",
@@ -87,6 +87,40 @@ def populate():
     })
     return charts
 
+def populateComparisons():
+    comparisons = []
+    comparisons.append({
+        "size" : "halfSpan",
+        "id" : "chart4",
+        "title" : " New Cases Today",
+        "type" : "line",
+        "data" : [
+            ['Month', 'Recoveries', 'Deaths'],
+            ["Mar", 1090, 520],
+            ["Apr", 700, 400],
+            ["May", 1170, 460],
+            ["Jun", 660, 1120],
+            ["Jul", 1030, 540],
+            ["Aug", 1000, 400],
+            ["Sep", 1170, 460],
+            ["Oct", 660, 1120],
+            ["Nov", 1030, 540],
+        ],
+    })
+    comparisons.append({
+        "size" : "halfSpan",
+        "id" : "chart5",
+        "title" : " Cumulative Cases Today",
+        "type" : "bar",
+        "data" : [
+            ['Element', 'Density'],
+            ['Copper', 8.94],           
+            ['Silver', 10.49],            
+            ['Gold', 19.30],
+            ['Platinum', 21.45],
+        ],
+    })
+
 def index(request):
     if request.method == 'POST':
         current_country = request.POST.get('country')
@@ -96,14 +130,14 @@ def index(request):
         with open("./covid_site/static/covid_site/country.txt","r") as f:
             current_country = f.readlines()[0]
 
-    charts = populate()
+    charts = populateCharts()
+    comparisons = populateComparisons()
     context = {}
     context["countries"] = sorted(countries)
     context["date"] = datetime.now().strftime("%d %B, %Y")
     context["current"] = current_country
     context["country_data"] = getCountryData()
-    
-    if len(charts) > 0:
-        context["charts"] = charts
+    context["charts"] = charts
+    context["comparisons"] = comparisons
         
     return render(request, 'covid_site/index.html', context)

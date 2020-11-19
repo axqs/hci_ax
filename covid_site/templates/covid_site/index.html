@@ -56,7 +56,7 @@
 
 <div style="clear: both; color: #ddddeb;">.</div>
 <div class="chartdiv">
-    <div class="sectionheading">Data in: <span class="dropdown">{{ current }} <i class="fa fa-caret-down"></i>
+    <div class="sectionheading">Compare Data in: <span class="dropdown">{{ current }} <i class="fa fa-caret-down"></i>
         <div class="dropdown-content">
             {% for country in countries %}
                 <form id="index" method="POST" action={% url 'index' %}>
@@ -68,32 +68,18 @@
     </span>
         
     </div>
+    {% if comparisons %}
+    {% for c in comparisons %}
+        <div id="container" class={{ c.size }}>
+            <div class="dataheading">{{ c.title }}</div>
+            <div id={{ c.id }}></div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No data available.</p> 
+{% endif %} 
     <div style="clear: both; color: #ddddeb;">.</div>
-
-    {% if charts %}
-        {% for c in charts %}
-            {% if c.id != "worldwide" %}
-                <div id="container" class={{ c.size }}>
-                    <div class="dataheading">{{ c.title }}</div>
-                    <div id={{ c.id }}></div>
-                </div>
-            {% endif %}
-        {% endfor %}
-    {% else %}
-        <p>No data available.</p> 
-    {% endif %} 
 </div>
 
-<div id="container" class="halfSpan">
-    <div class="dataheading">New Cases Today</div>
-    <div class="datavalue">
-        <span class="iconify" data-icon="simple-icons:myspace" data-inline="false"></span>
-        {{ country_data.cases }}
-    </div>
-    <div class="dataheading">New Deaths Today</div>
-    <div class="datavalue">
-        <span class="iconify" data-icon="simple-icons:myspace" data-inline="false"></span>
-        {{ country_data.deaths }}
-    </div>
-</div>
+
 {% endblock %}
