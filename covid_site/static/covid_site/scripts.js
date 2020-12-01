@@ -93,7 +93,7 @@ function drawChart(chart){
         case "bar":
             return drawBar(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },height:getHeight(chart["size"]),width:getSize(chart["size"])});
         case "pie":
-            return drawPie(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },height:getHeight(chart["size"]),width:getSize(chart["size"])});
+            return drawPie(chart["id"],chart["data"],{legend: {position: 'labeled'},backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },height:getHeight(chart["size"]),width:getSize(chart["size"])});
         case "area":
             return drawArea(chart["id"],chart["data"],{backgroundColor: { fill:'transparent' },tooltip: { isHtml: true },height:getHeight(chart["size"]),width:getSize(chart["size"])});
         default:

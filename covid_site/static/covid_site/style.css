@@ -37,6 +37,7 @@ a:hover {
     position: relative;
     padding: 3px;
     color: forestgreen;
+    display: inline-block;
 }
 .dropdown:hover {
     color: rebeccapurple;
@@ -45,7 +46,6 @@ a:hover {
 .dropdown-content {
     display: none;
     position: absolute;
-    align-self: center;
     background-color: #f9f9f9;
     min-width: 160px;
     max-height: 300px;
@@ -56,11 +56,9 @@ a:hover {
 }
 
 .dropdown-content input {
-    float: inherit;
     width: 100%;
     border: none;
     outline: none;
-    float: none;
     overflow: hidden;
     color: black;
     background-color: transparent;
@@ -71,11 +69,11 @@ a:hover {
 }
 
 .dropdown-content input:hover {
-background-color: #ddd;
+    background-color: #ddd;
 }
 
 .dropdown:hover .dropdown-content {
-display: block;
+    display: block;
 }
 
 #map{

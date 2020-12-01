@@ -126,7 +126,7 @@ def populateComparisons():
     compareData = getCompareData()
     new_cases = []
     for c in compareData:
-        new_cases.append(c.tail(1)["New_cases"].item())
+        new_cases.append(c.iloc[-2]["New_cases"].item())
 
     monthData = []
 
